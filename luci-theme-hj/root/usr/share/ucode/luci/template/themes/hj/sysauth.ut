@@ -1,0 +1,89 @@
+{#
+ Copyright 2008 Steven Barth <steven@midlink.org>
+ Copyright 2008-2012 Jo-Philipp Wich <jow@openwrt.org>
+ Licensed to the public under the Apache License 2.0.
+-#}
+
+<!-- partial -->
+  
+</html>
+<title> Login j-wrt</title>
+
+
+{% include('header') %}
+
+<form method="post">
+	{% if (fuser): %}
+		<div class="alert-message warning">
+			<p>{{ _('Invalid username and/or password! Please try again.') }}</p>
+		</div>
+	{% endif %}
+
+	<div class="cbi-map">
+		
+		<div class="cbi-map-descr">
+			
+		</div>
+		
+		<h1 name="content">{{ _(' HJ-WRT &nbsp; Wireless Freedom') }}</h1>
+<script type="text/javascript">window.setTimeout("waktu()",1000); function waktu(){var tanggal=new Date(); setTimeout("waktu()",1000); document.getElementById("jam").innerHTML=tanggal.getHours()+":"+tanggal.getMinutes()+":"+tanggal.getSeconds();}</script> <script language="JavaScript"> var tanggallengkap=new String(); var namahari=("Minggu Senin Selasa Rabu Kamis Jumat Sabtu"); namahari=namahari.split(" "); var namabulan=("Januari Februari Maret April Mei Juni Juli Agustus September Oktober November Desember"); namabulan=namabulan.split(" "); var tgl=new Date(); var hari=tgl.getDay(); var tanggal=tgl.getDate(); var bulan=tgl.getMonth(); var tahun=tgl.getFullYear(); tanggallengkap=namahari[hari] + " , " +tanggal + " " + namabulan[bulan] + " " + tahun; </script>
+<center><h1 style="margin: 5px 0; color:yellow; text-align: center; font-size: 15px;"><script language='JavaScript'>document.write(tanggallengkap); </script> &nbsp; | &nbsp;  <span id='jam' ><font style=color:lime></span></h1></center>    
+
+		<div class="cbi-section"><div class="cbi-section-node">
+		{{ _('Please enter your username and password.') }}
+			<div class="cbi-value">
+				<label class="cbi-value-title">{{ _('Username') }}</label>
+				<div class="cbi-value-field">
+					<input class="cbi-input-text" type="text" name="luci_username" value="{{ entityencode(duser, true) }}" />
+				</div>
+			</div>
+			<div class="cbi-value cbi-value-last">
+				<label class="cbi-value-title">{{ _('Password') }}</label>
+				<div class="cbi-value-field">
+					<input class="cbi-input-text" type="password" name="luci_password" />
+				</div>
+			</div>
+		</div></div>
+	</div>
+<div class="wrap">
+	
+		<input type="submit" value="{{ _('LOGIN') }}" class="btn cbi-button cbi-button-login" />
+		
+	</div>
+</form>
+
+{%
+	let http_port = uci.get('uhttpd', 'main', 'listen_http') ?? [];
+
+	https_port = uniq(filter(
+		map(
+			(type(http_port) == 'string') ? split(http_port, /\s+/) : http_port,
+			e => +match(e, /\d+$/)?.[0]
+		),
+		p => (p >= 0 && p <= 65535)
+	));
+%}
+
+<script type="text/javascript">//<![CDATA[
+	var input = document.getElementsByName('luci_password')[0];
+
+	if (input)
+		input.focus();
+
+	if (document.location.protocol != 'http:') {
+		{{ http_ports }}.forEach(function(port) {
+			var url = 'http://' + window.location.hostname + ':' + port + window.location.pathname;
+			var img = new Image();
+
+			img.onload = function() { window.location = url };
+			img.src = 'http://' + window.location.hostname + ':' + '/cgi-bin/luci' + Math.random();
+
+			setTimeout(function() { img.src = '' }, 50);
+		});
+	}
+//]]></script>
+
+
+{% include('footer') %}
+
+
