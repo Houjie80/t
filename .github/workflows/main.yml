@@ -42,7 +42,7 @@ jobs:
           mkdir sdk && tar -xf sdk.tar.xz -C sdk --strip-components=1
 
           echo -e "\033[34m📦 Cloning $PKG_NAME package \033[0m"
-          git clone -q https://github.com/${{ github.repository }} sdk/package/${PKG_NAME}
+          cp -rf ./luci-theme-hj sdk/package/${PKG_NAME}
 
       - name: 📡 Set up SDK feeds
         run: |
