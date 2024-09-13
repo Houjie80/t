@@ -11,7 +11,7 @@ PKG_NAME:=luci-theme-$(THEME_NAME)
 LUCI_TITLE:=hj Theme by houjie
 LUCI_DEPENDS:=
 PKG_VERSION:=1.0.5
-PKG_RELEASE:=11092024
+PKG_RELEASE:=
 
 define Package/luci-theme-$(THEME_NAME)/postinst
 #!/bin/sh
