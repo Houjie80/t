@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 'lucu-theme-hj/Makefile'
+      - 'luci-theme-hj/Makefile'
   workflow_dispatch:
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
           sudo -E apt-get clean > /dev/null 2>&1
           
           echo -e "\033[34m🔧 Configuring environment \033[0m"
-          PKG_NAME=$(basename ${{ github.repository }})
+          PKG_NAME=luci-theme-hj
           PKG_VERSION=$(grep -oP 'PKG_VERSION:=\K.*' luci-theme-hj/Makefile)
           export TERM=xterm
           echo "PKG_VERSION=$PKG_VERSION" >> $GITHUB_ENV
