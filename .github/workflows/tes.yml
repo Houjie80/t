@@ -104,7 +104,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: luci-theme-hj-${{ matrix.release }}_${{ matrix.arch }}
-          path: ${{ github.workspace }}/artifacts/bin/packages/${{ matrix.arch }}/action/luci-theme-hj*
+          path: ${{ github.workspace }}/artifacts/bin/packages/${{ matrix.arch }}/action/luci-theme*
 
   push_packages:
     needs: build_ipk
