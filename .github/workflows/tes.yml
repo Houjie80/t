@@ -58,7 +58,8 @@ jobs:
           tag_name: ${{steps.check_version.outputs.latest_version}}
           target_commitish: ${{ github.ref_name }}
           prerelease: ${{steps.check_version.outputs.prerelease}}
-          body_path: release.txt
+          body: |
+            ## :mega:Update content
             
   build_ipk:
     needs: job_check
