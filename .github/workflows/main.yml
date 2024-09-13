@@ -43,7 +43,6 @@ jobs:
 
           echo -e "\033[34m📦 Cloning $PKG_NAME package \033[0m"
           git clone -q https://github.com/${{ github.repository }} sdk/package/${PKG_NAME}
-          chmod +x sdk/package/${PKG_NAME}/root/usr/share/speedtest/schedule
 
       - name: 📡 Set up SDK feeds
         run: |
@@ -66,7 +65,7 @@ jobs:
           make package/${PKG_NAME}/{clean,compile} -j$(nproc) > /dev/null 2>&1
 
           echo -e "\033[34m📦 Compilation completed: \033[0m"
-          PKG_PATH=$(find bin/packages/x86_64/luci/ -name 'luci-app-*.ipk')
+          PKG_PATH=$(find bin/packages/x86_64/luci/ -name 'luci-theme-*.ipk')
           PKG_FILE=$(basename $PKG_PATH)
           echo "PKG_PATH=sdk/$PKG_PATH" >> $GITHUB_ENV
           echo "PKG_FILE=$PKG_FILE" >> $GITHUB_ENV
