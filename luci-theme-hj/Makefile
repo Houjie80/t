@@ -7,13 +7,13 @@
 include $(TOPDIR)/rules.mk
 THEME_NAME:hj
 THEME_TITLE:=hj Theme
-PKG_NAME:=luci-theme-$(THEME_NAME)
+PKG_NAME:=luci-theme-hj
 LUCI_TITLE:=hj Theme by houjie
 LUCI_DEPENDS:=
 PKG_VERSION:=1.0.7
 PKG_RELEASE:=
 
-define Package/luci-theme-$(THEME_NAME)/postinst
+define Package/luci-theme-hj/postinst
 #!/bin/sh
 
 rm -Rf /var/luci-modulecache
