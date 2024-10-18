@@ -9,17 +9,31 @@ THEME_NAME:hj
 THEME_TITLE:=hj Theme
 PKG_NAME:=luci-theme-hj
 LUCI_TITLE:=hj Theme by houjie
-LUCI_DEPENDS:=
-PKG_VERSION:=1.0.7
+LUCI_DEPENDS:=libc
+PKG_VERSION:=1.0.8
 PKG_RELEASE:=
 
 define Package/luci-theme-hj/postinst
 #!/bin/sh
-
-rm -Rf /var/luci-modulecache
-rm -Rf /var/luci-indexcache
-exit 0
-
+[ "${IPKG_NO_SCRIPT}" = "1" ] && exit 0
+[ -s ${IPKG_INSTROOT}/lib/functions.sh ] || exit 0
+. ${IPKG_INSTROOT}/lib/functions.sh
+default_postinst $0 $@
+endef
+define Package/luci-theme-hj/postinst-pkg
+[ -n "${IPKG_INSTROOT}" ] || { rm -f /tmp/luci-indexcache.*
+	rm -rf /tmp/luci-modulecache/
+	killall -HUP rpcd 2>/dev/null
+	ln -s www/luci-static/hj /
+	exit 0
+}
+endef
+define Package/luci-theme-hj/postrm
+#!/bin/sh
+[ -n "${IPKG_INSTROOT}" ] || {
+	uci -q delete luci.themes.hj
+	uci commit luci
+}
 endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
