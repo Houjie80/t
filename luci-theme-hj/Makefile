@@ -25,7 +25,6 @@ define Package/luci-theme-hj/postinst-pkg
 [ -n "${IPKG_INSTROOT}" ] || { rm -f /tmp/luci-indexcache.*
 	rm -rf /tmp/luci-modulecache/
 	killall -HUP rpcd 2>/dev/null
-	ln -s www/luci-static/hj /
 	exit 0
 }
 endef
