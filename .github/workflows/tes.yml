@@ -13,7 +13,7 @@ on:
         default: 'false'
   push:
     branches:
-      - 'tes'
+      - 'master'
     paths:
       - 'luci-theme-hj/Makefile'
 env:
@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: 'tes'
+          ref: 'master'
 
       - name: Check version
         id: check_version
