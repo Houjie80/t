@@ -9,9 +9,9 @@ THEME_NAME:hj
 THEME_TITLE:=hj Theme
 PKG_NAME:=luci-theme-hj
 LUCI_TITLE:=hj Theme by houjie
-LUCI_DEPENDS:=libc
-PKG_VERSION:=2.0.3
-PKG_RELEASE:=
+LUCI_DEPENDS:=+luci-base
+PKG_VERSION:=2.2.3
+PKG_RELEASE:=20250102
 
 define Package/luci-theme-hj/postinst
 #!/bin/sh
