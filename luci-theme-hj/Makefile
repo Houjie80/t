@@ -5,12 +5,13 @@
 #
 
 include $(TOPDIR)/rules.mk
+
 THEME_NAME:hj
 THEME_TITLE:=hj Theme
 PKG_NAME:=luci-theme-hj
 LUCI_TITLE:=hj Theme by houjie
 LUCI_DEPENDS:=+luci-base
-PKG_VERSION:=2.2.4
+PKG_VERSION:=2.2.5
 PKG_RELEASE:=20250102
 
 define Package/luci-theme-hj/postrm
@@ -24,6 +25,6 @@ define Package/luci-theme-hj/postrm
 }
 endef
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include ../../luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
