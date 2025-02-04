@@ -26,6 +26,11 @@ on:
         required: true
         default: '-'
         type: string
+      url:
+        description: 'url'
+        required: false
+        default: 'git clone'
+        type: string  
         
 jobs: 
   build_ipk:
@@ -50,6 +55,7 @@ jobs:
       - name: Preparing Neko
         run: |
               echo ""
+              ${{ inputs.url }}
               mkdir feeds artifacts
               cp -rf ./${{ inputs.letak }} ./feeds
         
@@ -66,7 +72,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: neko-${{ matrix.release }}_${{ matrix.arch }}
-          path: ${{ github.workspace }}/artifacts/bin/packages/${{ matrix.arch }}/action/${{ inputs.nama }}
+          path: ${{ github.workspace }}/artifacts/bin/packages/${{ matrix.arch }}/action/${{ inputs.nama }}*
 
   push_packages:
     needs: build_ipk
@@ -82,7 +88,7 @@ jobs:
         shell: bash
         run: |
           mkdir ./release
-          cp -rf ./neko-23.05.4_x86_64/${{ inputs.nama }} ./release/${{ inputs.nama }}_${{ inputs.version }}_all.ipk
+          cp -rf ./neko-23.05.4_x86_64/${{ inputs.nama }}* ./release/${{ inputs.nama }}_${{ inputs.version }}_all.ipk
         
       - name: Upload release asset
         uses: svenstaro/upload-release-action@v2
