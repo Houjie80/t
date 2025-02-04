@@ -14,17 +14,17 @@ on:
       letak:
         description: 'letak file'
         required: true
-        default: '-'
+        default: ''
         type: string 
       nama:
         description: 'nama app'
         required: true
-        default: '-'
+        default: ''
         type: string  
       changelog:
         description: 'Changelog'
         required: true
-        default: ''
+        default: '-'
         type: string
         
 jobs: 
