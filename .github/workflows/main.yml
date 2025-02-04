@@ -3,7 +3,7 @@ name: Build IPK
 on:
   push:
     branches:
-      - master
+      - ${{ github.ref_name }}
     paths:
       - 'luci-theme-hj/Makefile'
   workflow_dispatch:
@@ -38,7 +38,7 @@ jobs:
       - name: 📦 Set up resources
         run: |
           echo -e "\033[34m🗂️ Downloading SDK OpenWRT \033[0m"
-          curl -s -L https://downloads.openwrt.org/releases/24.10.0-rc7/targets/armsr/armv8/openwrt-sdk-24.10.0-rc7-armsr-armv8_gcc-13.3.0_musl.Linux-x86_64.tar.zst -o sdk.tar.xz
+          curl -s -L https://downloads.openwrt.org/releases/24.10.0/targets/armsr/armv8/openwrt-sdk-24.10.0-rc7-armsr-armv8_gcc-13.3.0_musl.Linux-x86_64.tar.zst -o sdk.tar.xz
           mkdir sdk && tar -xf sdk.tar.xz -C sdk --strip-components=1
 
           echo -e "\033[34m📦 Cloning $PKG_NAME package \033[0m"
