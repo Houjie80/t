@@ -25,6 +25,8 @@ define Package/luci-theme-hj/postrm
 }
 endef
 
-include $(TOPDIR)/rules.mk
+CONFIG_LUCI_CSSTIDY:=
+
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
