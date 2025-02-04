@@ -11,6 +11,16 @@ on:
         required: true
         default: '1.2.0-beta'
         type: string
+      letak:
+        description: 'letak file'
+        required: true
+        default: '-'
+        type: string 
+      nama:
+        description: 'nama app'
+        required: true
+        default: '-'
+        type: string  
       changelog:
         description: 'Changelog'
         required: true
@@ -41,7 +51,7 @@ jobs:
         run: |
               echo ""
               mkdir feeds artifacts
-              cp -rf ./luci-theme-hj ./feeds
+              cp -rf ./${{ inputs.letak }} ./feeds
         
       - name: Building luci-app-neko
         uses: nosignals/gh-action-sdk@main
@@ -49,14 +59,14 @@ jobs:
           ARCH: ${{ matrix.arch }}-${{ matrix.release }}
           ARTIFACTS_DIR: ${{ github.workspace }}/artifacts
           FEED_DIR: ${{ github.workspace }}/feeds
-          PACKAGES: luci-theme-hj
+          PACKAGES: ${{ inputs.nama }}
           NO_SHFMT_CHECK: 1
         
       - name: Delivering Package
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: neko-${{ matrix.release }}_${{ matrix.arch }}
-          path: ${{ github.workspace }}/artifacts/bin/packages/${{ matrix.arch }}/action/luci-theme*
+          path: ${{ github.workspace }}/artifacts/bin/packages/${{ matrix.arch }}/action/${{ inputs.nama }}
 
   push_packages:
     needs: build_ipk
@@ -72,7 +82,7 @@ jobs:
         shell: bash
         run: |
           mkdir ./release
-          cp -rf ./neko-23.05.4_x86_64/luci-theme* ./release/luci-theme-hj_${{ inputs.version }}_all.ipk
+          cp -rf ./neko-23.05.4_x86_64/${{ inputs.nama }} ./release/${{ inputs.nama }}_${{ inputs.version }}_all.ipk
         
       - name: Upload release asset
         uses: svenstaro/upload-release-action@v2
