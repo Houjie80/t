@@ -24,15 +24,13 @@ define Package/luci-theme-hj/postrm
 	uci commit luci
 }
 endef
-define Package/luci-theme-hj/postrm-pkg
+define Package/luci-theme-hj/postinst-pkg
 #!/bin/sh
 [ -n "${IPKG_INSTROOT}" ] || { rm -f /tmp/luci-indexcache.*
 	rm -rf /tmp/luci-modulecache/
 	killall -HUP rpcd 2>/dev/null
         ln -s www/luci-static/hj /
 	exit 0
-}
-
 }
 endef
 
