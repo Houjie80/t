@@ -87,7 +87,7 @@
 			 
              <td><a href='/cgi-bin/luci/admin/network/network'><img src="{{ media }}/navbar/interface.png" width="35" height="35"></a></td>&nbsp;&nbsp;&nbsp;
            
-             <td><a href='http://192.168.1.1/cgi-bin/luci/admin/services/neko'><img src="{{ media }}/navbar/neko.png" width="35" height="35"></a></td>&nbsp;&nbsp;&nbsp;&nbsp;
+             <td><a href='http://192.168.1.1/cgi-bin/luci/admin/services/radmonv2'><img src="{{ media }}/navbar/radmon.png" width="35" height="35"></a></td>&nbsp;&nbsp;&nbsp;&nbsp;
 			 
              </tr>
             
@@ -153,7 +153,7 @@
 			<a href='/cgi-bin/luci/admin/services/openclash'><span class="demo-icon icon-clash-modified"></span></a>
 		</li>
 		<li>
-			<a href='/cgi-bin/luci/admin/services/passwall'><span class=" icon-paypal-1"></span></a>
+			<a href='/cgi-bin/luci/admin/services/radmonv2'><span class=" icon-paypal-1"></span></a>
 		</li>
 		<li>
 			<a href='/cgi-bin/luci/admin/services/ttyd'><span class="fa faa-horizontal animated demo-icon icon-terminal"></span></a>
