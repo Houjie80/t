@@ -1,16 +1,11 @@
 #
 # Copyright (C) 2024 nosignals
 #
-name: Building Neko
+name: Building ipk
 
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Neko version'
-        required: true
-        default: '1.2.0-beta'
-        type: string
       letak:
         description: 'letak file'
         required: true
@@ -29,14 +24,14 @@ on:
       url:
         description: 'url'
         required: false
-        default: 'git clone'
+        default: ''
         type: string  
         
 jobs: 
   build_ipk:
     permissions:
       contents: write
-    name: Build Neko
+    name: Build ipk
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -52,14 +47,14 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
           
-      - name: Preparing Neko
+      - name: Preparing ${{ inputs.nama }}
         run: |
               echo ""
-              ${{ inputs.url }}
+              git clone ${{ inputs.url }}
               mkdir feeds artifacts
               cp -rf ./${{ inputs.letak }} ./feeds
         
-      - name: Building luci-app-neko
+      - name: Building ${{ inputs.nama }}
         uses: nosignals/gh-action-sdk@main
         env:
           ARCH: ${{ matrix.arch }}-${{ matrix.release }}
@@ -96,17 +91,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./release/*
           overwrite: true
-          tag: luci-app-neko_${{ inputs.version }}
+          tag: ${{ inputs.nama }}
           file_glob: true
           body: |
-            # LUCI APP NEKO ${{ inputs.version }}
-            Simple Clash TUN based Proxy
-            ### Information
-            - Changelog : 
-              - ${{ inputs.changelog }}
-            - Default Config : 
-              - config.yaml : minimal Configs for Neko (only 1 rules) - Secret : ` sign `
-              - nosignals.yaml : 2 rules can added (Block Host, Game) - Secret : ` telekulo `
-            ### Dependency Requirement
-            - ` bash, kmod-tun, php, php-cgi ` (install PHP Manually before install Neko)
-            - Openwrt 23: ` php8 php8-cgi nftables mihomo` 
+            # ${{ inputs.nama }}
