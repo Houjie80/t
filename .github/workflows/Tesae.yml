@@ -57,7 +57,6 @@ jobs:
           - x86_64
         branch:
           - openwrt-24.10
-          - SNAPSHOT
 
     steps:
       - name: Checkout repository
@@ -90,17 +89,10 @@ jobs:
         run: |
           # Create release artifacts directory
           mkdir -p ${{ github.workspace }}/release-artifacts
-
-          # Handle different file extensions based on branch
-          if [[ "${{ matrix.branch }}" == "SNAPSHOT" ]]; then
-            # For SNAPSHOT branch - copy APK files
-            find ${{ github.workspace }}/artifacts/bin/packages -name "${{ env.PACKAGE_NAME }}*.apk" -exec cp {} ${{ github.workspace }}/release-artifacts/ \; || true
-            find ${{ github.workspace }}/artifacts/bin/targets -name "${{ env.PACKAGE_NAME }}*.apk" -exec cp {} ${{ github.workspace }}/release-artifacts/ \; || true
-          else
+          
             # For other branches - copy IPK files
             find ${{ github.workspace }}/artifacts/bin/packages -name "${{ env.PACKAGE_NAME }}*.ipk" -exec cp {} ${{ github.workspace }}/release-artifacts/ \; || true
             find ${{ github.workspace }}/artifacts/bin/targets -name "${{ env.PACKAGE_NAME }}*.ipk" -exec cp {} ${{ github.workspace }}/release-artifacts/ \; || true
-          fi
 
           # Debug: list contents
           echo "Contents of release-artifacts directory:"
