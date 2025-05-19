@@ -11,16 +11,13 @@ THEME_TITLE:=hj Theme
 PKG_NAME:=luci-theme-hj
 LUCI_TITLE:=hj Theme by houjie
 LUCI_DEPENDS:=+luci-base
-PKG_VERSION:=2.2.6
-PKG_RELEASE:=20250102
+PKG_VERSION:=3.0
+PKG_RELEASE:=2025-05-19
 
 define Package/luci-theme-hj/postrm
 #!/bin/sh
 [ -n "$${IPKG_INSTROOT}" ] || {
 	uci -q delete luci.themes.hj
-	#uci -q delete luci.themes.Material3Red
-	# uci -q delete luci.themes.Material3Dark
-	# uci -q delete luci.themes.Material3Light
 	uci commit luci
 }
 endef
