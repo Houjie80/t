@@ -6,7 +6,7 @@ on:
       releases_branch:
         description: "Select the releases branch"
         required: false
-        default: "openwrt:24.10.1"
+        default: "openwrt:24.10"
         type: choice
         options:
           - openwrt:24.10
