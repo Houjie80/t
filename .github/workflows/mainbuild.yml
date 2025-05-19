@@ -78,7 +78,7 @@ jobs:
     steps:
       - name: Mengatur tanggal
         id: date
-        run: echo "date=$(date +'%d-%m-%y %H:%M:%S')" >> $GITHUB_OUTPUT
+        run: echo "date=$(date +'%d-%m-%y')" >> $GITHUB_OUTPUT
         
       - name: Download temporary artifact
         uses: actions/download-artifact@v4
