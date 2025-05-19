@@ -6,11 +6,13 @@ on:
       releases_branch:
         description: "Select the releases branch"
         required: false
-        default: "openwrt:24.10"
+        default: "openwrt-24.10"
         type: choice
         options:
-          - openwrt:24.10
-          - openwrt:23.05
+          - openwrt-24.10
+          - openwrt-24.10.1
+          - openwrt-23.05
+          - SNAPSHOT
   push:
     tags:
       - "v*"
@@ -98,14 +100,22 @@ jobs:
         run: |
           # Create release artifacts directory
           mkdir -p ${{ github.workspace }}/release-artifacts
-          
+
+          # Handle different file extensions based on branch
+          if [[ "${{ matrix.branch }}" == "SNAPSHOT" ]]; then
+            # For SNAPSHOT branch - copy APK files
+            find ${{ github.workspace }}/artifacts/bin/packages -name "${{ env.PACKAGE_NAME }}*.apk" -exec cp {} ${{ github.workspace }}/release-artifacts/ \; || true
+            find ${{ github.workspace }}/artifacts/bin/targets -name "${{ env.PACKAGE_NAME }}*.apk" -exec cp {} ${{ github.workspace }}/release-artifacts/ \; || true
+          else
             # For other branches - copy IPK files
             find ${{ github.workspace }}/artifacts/bin/packages -name "${{ env.PACKAGE_NAME }}*.ipk" -exec cp {} ${{ github.workspace }}/release-artifacts/ \; || true
             find ${{ github.workspace }}/artifacts/bin/targets -name "${{ env.PACKAGE_NAME }}*.ipk" -exec cp {} ${{ github.workspace }}/release-artifacts/ \; || true
+          fi
 
           # Debug: list contents
           echo "Contents of release-artifacts directory:"
           ls -la ${{ github.workspace }}/release-artifacts/
+
 
       - name: Upload release artifacts
         uses: softprops/action-gh-release@v2
